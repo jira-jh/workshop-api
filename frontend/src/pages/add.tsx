@@ -13,12 +13,12 @@ function AddProduct() {
     if (data) {
       setInitialValues(data)
     } else {
-      setInitialValues({ name: '', category: '', description: '', address: '', phone: '', rating: 0.0 })
+      setInitialValues({ name: '', image: '', description: '', price: 0 })
     }
   }, [data])
 
   console.log(initialValues);
-  
+
   return (
     <Container>
       <Typography variant='h5'>Add Product</Typography>
@@ -54,16 +54,15 @@ function AddProduct() {
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  id='category'
-                  name='category'
-                  label='category'
-                  value={values.category}
+                  id='image'
+                  name='image'
+                  label='image'
+                  value={values.image}
                   onChange={handleChange}
                   fullWidth
                 />
               </Grid>
               <Grid item xs={6}>
-
                 <TextField
                   id='description'
                   name='description'
@@ -75,30 +74,10 @@ function AddProduct() {
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  id='address'
-                  name='address'
-                  label='address'
-                  value={values.address}
-                  onChange={handleChange}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id='phone'
-                  name='phone'
-                  label='phone'
-                  value={values.phone}
-                  onChange={handleChange}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  id='rating'
-                  name='rating'
-                  label='rating'
-                  value={values.rating}
+                  id='price'
+                  name='price'
+                  label='price'
+                  value={values.price}
                   onChange={handleChange}
                   fullWidth
                 />
