@@ -19,13 +19,6 @@ async function connectDB() {
 }
 
 
-const findLastId = async () => {
-  const collection = db.collection("stores"); // เปลี่ยนชื่อ Collection ตามที่เราต้องการ
-  const lastStore = await collection.find().sort({ id: -1 }).limit(1).toArray();
-  return lastStore.length > 0 ? lastStore[0].id : 0;
-}
-
-
 app.delete('/products/delete/:id', async (req, res) => {
   if (!db) {
     return res.status(500).send("Database not connected");
@@ -52,7 +45,7 @@ app.put('/products/update/:id', async (req, res) => {
   res.json({ message: "Product updated" });
 })
 
-app.post('/products/add', async (req, res) => {
+app.post('/products', async (req, res) => {
   if (!db) {
     return res.status(500).send("Database not connected");
   }
@@ -64,14 +57,12 @@ app.post('/products/add', async (req, res) => {
     return res.status(400).send("Missing required fields");
   }
   const collection = db.collection("products");
-  const lastId = await findLastId();
-  req.body.id = lastId + 1;
   const data = req.body;
   await collection.insertOne(data);
   res.json({ message: "Product added" });
 })
 
-app.get('/products/list', async (req, res) => {
+app.get('/products', async (req, res) => {
   if (!db) {
     return res.status(500).send("Database not connected");
   }
@@ -80,7 +71,7 @@ app.get('/products/list', async (req, res) => {
   res.json(data);
 });
 
-app.get('/products/detail/:id', async (req, res) => {
+app.get('/products/:id', async (req, res) => {
   if (!db) {
     return res.status(500).send("Database not connected");
   }
