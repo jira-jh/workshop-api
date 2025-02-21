@@ -4,7 +4,7 @@ const cors = require('cors')
 
 const app = express();
 const port = 3000;
-const mongoURI = 'mongodb://localhost:27017/'; // เปลี่ยน URI ตามที่เราต้องการ
+const mongoURI = 'mongodb+srv://nvcdb:nvcdb@nvc-db.4umby.mongodb.net/'; // เปลี่ยน URI ตามที่เราต้องการ
 let db;
 
 app.use(cors());
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 async function connectDB() {
   const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
   await client.connect();
-  db = client.db("stores"); // เปลี่ยนชื่อ Database ตามที่เราต้องการ
+  db = client.db("00-sorawit"); // เปลี่ยนชื่อ Database ตามที่เราต้องการ
   console.log("MongoDB Connected");
 }
 
@@ -53,9 +53,9 @@ app.post('/products', async (req, res) => {
   if (!req.body) {
     return res.status(400).send("Request body is missing");
   }
-  if (!req.body.name || !req.body.category) {
-    return res.status(400).send("Missing required fields");
-  }
+  // if (!req.body.name || !req.body.category) {
+  //   return res.status(400).send("Missing required fields");
+  // }
   const collection = db.collection("products");
   const data = req.body;
   await collection.insertOne(data);
